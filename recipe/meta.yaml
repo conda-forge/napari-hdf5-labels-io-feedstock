@@ -6,24 +6,24 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/napari-hdf5-labels-io-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/napari-hdf5-labels-io-{{ version }}.tar.gz
   sha256: a16a66b3480b374403f6dd64d03de5cf3624d3072783f330d7d2baf7f613dac6
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.6,<3.9
+    - python {{ python_min }}
     - setuptools-scm
   run:
     - h5py >=2.10.0
     - napari-plugin-engine >=0.1.4
     - numpy
-    - python >=3.6,<3.9
+    - python >={{ python_min }},<3.9
     - sparse
     - zarr
 
@@ -34,6 +34,7 @@ test:
     - pip list
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/yapic/napari-hdf5-labels-io
